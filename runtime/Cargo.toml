@@ -25,6 +25,7 @@ extism-manifest = { version = "1.0.0-rc2", path = "../manifest" }
 extism-convert = { version = "0.2", path = "../convert" }
 uuid = { version = "1", features = ["v4"] }
 libc = "0.2"
+rustc-hash = { version = "1.1.0" }
 
 [features]
 default = ["http", "register-http", "register-filesystem"]

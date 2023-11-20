@@ -1,4 +1,4 @@
-use std::collections::BTreeMap;
+use rustc_hash::*;
 use std::path::{Path, PathBuf};
 
 #[deprecated]
@@ -25,7 +25,7 @@ pub struct HttpRequest {
     /// Request headers
     #[serde(default)]
     #[serde(alias = "header")]
-    pub headers: std::collections::BTreeMap<String, String>,
+    pub headers: rustc_hash::FxHashMap<String, String>,
 
     /// Request method
     pub method: Option<String>,
@@ -205,7 +205,7 @@ pub struct Manifest {
 
     /// Config values are made accessible using the PDK `extism_config_get` function
     #[serde(default)]
-    pub config: BTreeMap<String, String>,
+    pub config: FxHashMap<String, String>,
     #[serde(default)]
 
     /// Specifies which hosts may be accessed via HTTP, if this is empty then
@@ -216,7 +216,7 @@ pub struct Manifest {
     /// the path on disk to the path it should be available inside the plugin.
     /// For example, `".": "/tmp"` would mount the current directory as `/tmp` inside the module
     #[serde(default)]
-    pub allowed_paths: Option<BTreeMap<PathBuf, PathBuf>>,
+    pub allowed_paths: Option<FxHashMap<PathBuf, PathBuf>>,
 
     /// The plugin timeout, by default this is set to 30s
     #[serde(default = "default_timeout")]
@@ -282,7 +282,7 @@ impl Manifest {
                 p.insert(src, dest);
             }
             None => {
-                let mut p = BTreeMap::new();
+                let mut p = FxHashMap::default();
                 p.insert(src, dest);
                 self.allowed_paths = Some(p);
             }

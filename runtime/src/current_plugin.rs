@@ -4,7 +4,7 @@ use crate::*;
 /// only be accessed from inside a host function
 pub struct CurrentPlugin {
     /// Plugin variables
-    pub(crate) vars: std::collections::BTreeMap<String, Vec<u8>>,
+    pub(crate) vars: rustc_hash::FxHashMap<String, Vec<u8>>,
 
     /// Extism manifest
     pub(crate) manifest: extism_manifest::Manifest,
@@ -221,12 +221,12 @@ impl CurrentPlugin {
     }
 
     /// Access a plugin's variables
-    pub fn vars(&self) -> &std::collections::BTreeMap<String, Vec<u8>> {
+    pub fn vars(&self) -> &rustc_hash::FxHashMap<String, Vec<u8>> {
         &self.vars
     }
 
     /// Mutable access to a plugin's variables
-    pub fn vars_mut(&mut self) -> &mut std::collections::BTreeMap<String, Vec<u8>> {
+    pub fn vars_mut(&mut self) -> &mut rustc_hash::FxHashMap<String, Vec<u8>> {
         &mut self.vars
     }
 
@@ -279,7 +279,7 @@ impl CurrentPlugin {
             wasi,
             manifest,
             http_status: 0,
-            vars: BTreeMap::new(),
+            vars: FxHashMap::default(),
             linker: std::ptr::null_mut(),
             store: std::ptr::null_mut(),
             available_pages,
