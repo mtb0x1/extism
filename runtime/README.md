@@ -144,7 +144,7 @@ We want to expose two functions to our plugin, `kv_write(key: String, value: Byt
 use extism::*;
 
 // pretend this is redis or something :)
-type KVStore = std::collections::BTreeMap<String, Vec<u8>>;
+type KVStore = std::collections::HashMap<String, Vec<u8>>;
 
 // When a first argument separated with a semicolon is provided to `host_fn` it is used as the
 // variable name and type for the `UserData` parameter

@@ -1,5 +1,5 @@
 pub(crate) use extism_convert::*;
-pub(crate) use std::collections::BTreeMap;
+pub(crate) use std::collections::HashMap;
 use std::str::FromStr;
 pub(crate) use wasmtime::*;
 

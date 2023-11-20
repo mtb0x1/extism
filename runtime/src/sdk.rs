@@ -378,13 +378,13 @@ pub unsafe extern "C" fn extism_plugin_config(
         json
     );
     let data = std::slice::from_raw_parts(json, json_size as usize);
-    let json: std::collections::BTreeMap<String, Option<String>> =
-        match serde_json::from_slice(data) {
-            Ok(x) => x,
-            Err(e) => {
-                return plugin.return_error(&mut lock, e, false);
-            }
-        };
+    let json: std::collections::HashMap<String, Option<String>> = match serde_json::from_slice(data)
+    {
+        Ok(x) => x,
+        Err(e) => {
+            return plugin.return_error(&mut lock, e, false);
+        }
+    };
 
     let wasi = &mut plugin.current_plugin_mut().wasi;
     if let Some(Wasi { ctx, .. }) = wasi {

@@ -49,7 +49,7 @@ impl Timer {
     pub fn init(timer: &mut Option<Timer>) -> std::sync::mpsc::Sender<TimerAction> {
         let (tx, rx) = std::sync::mpsc::channel();
         let thread = std::thread::spawn(move || {
-            let mut plugins = std::collections::BTreeMap::new();
+            let mut plugins = std::collections::HashMap::new();
 
             macro_rules! handle {
                 ($x:expr) => {

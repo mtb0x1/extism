@@ -1,4 +1,4 @@
-use std::collections::BTreeMap;
+use std::collections::HashMap;
 
 use crate::*;
 
@@ -46,7 +46,7 @@ pub struct Plugin {
     pub(crate) cancel_handle: CancelHandle,
 
     /// All modules that were provided to the linker
-    pub(crate) modules: BTreeMap<String, Module>,
+    pub(crate) modules: HashMap<String, Module>,
 
     /// Instance provides the ability to call functions in a module, a `Plugin` is initialized with
     /// an `instance_pre` but no `instance`. The `instance` will be created during `Plugin::raw_call`

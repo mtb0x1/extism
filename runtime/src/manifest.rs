@@ -1,4 +1,4 @@
-use std::collections::BTreeMap;
+use std::collections::HashMap;
 use std::fmt::Write as FmtWrite;
 use std::io::Read;
 
@@ -164,7 +164,7 @@ const WASM_MAGIC: [u8; 4] = [0x00, 0x61, 0x73, 0x6d];
 pub(crate) fn load(
     engine: &Engine,
     data: &[u8],
-) -> Result<(extism_manifest::Manifest, BTreeMap<String, Module>), Error> {
+) -> Result<(extism_manifest::Manifest, HashMap<String, Module>), Error> {
     let extism_module = Module::new(engine, WASM)?;
     let has_magic = data.len() >= 4 && data[0..4] == WASM_MAGIC;
     let is_wast = data.starts_with(b"(module") || data.starts_with(b";;");
@@ -188,7 +188,7 @@ pub(crate) fn load(
 
     trace!("Loading WASM module bytes");
     let m = Module::new(engine, data)?;
-    let mut modules = BTreeMap::new();
+    let mut modules = HashMap::new();
     modules.insert(EXTISM_ENV_MODULE.to_string(), extism_module);
     modules.insert("main".to_string(), m);
     Ok((Default::default(), modules))
@@ -197,12 +197,12 @@ pub(crate) fn load(
 pub(crate) fn modules(
     manifest: &extism_manifest::Manifest,
     engine: &Engine,
-) -> Result<BTreeMap<String, Module>, Error> {
+) -> Result<HashMap<String, Module>, Error> {
     if manifest.wasm.is_empty() {
         return Err(anyhow::format_err!("No wasm files specified"));
     }
 
-    let mut modules = BTreeMap::new();
+    let mut modules = HashMap::new();
 
     // If there's only one module, it should be called `main`
     if manifest.wasm.len() == 1 {
