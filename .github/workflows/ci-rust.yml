@@ -1,14 +1,9 @@
 on: 
-  pull_request:
-    paths:
-      - .github/actions/extism/**
-      - .github/workflows/ci-rust.yml
-      - convert/**
-      - manifest/**
-      - runtime/**
-      - rust/**
-      - libextism/**
-  workflow_dispatch:
+    pull_request:
+      branches: [ "Hashmaps" ]
+    workflow_dispatch:
+    push:
+      branches: [ "Hashmaps" ]
 
 name: Rust CI
 
